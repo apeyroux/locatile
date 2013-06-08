@@ -3,8 +3,6 @@
 #include <string.h>
 #include <stddef.h>
 
-#include <stdio.h>
-
 #include "osm.h"
 
 int long2tilex(double lon, int z) { 
@@ -41,10 +39,7 @@ osm_tile_t * url2tile(char *url) {
 		exit(0);
 	if(NULL == (tile = malloc(sizeof(osm_tile_t))))
 		exit(0);
-	/***********************************************
-	 * faire un split puis creer la tile
-	*/
-
+	// faire un split puis creer la tile
 	char *tocken = NULL;
 	char **buf = malloc(sizeof(char *)*512);
 	int i = 0;
