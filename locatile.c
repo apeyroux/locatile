@@ -22,6 +22,8 @@ int tile2gps(osm_tile_t *tile, osm_gps_t *gps) {
 int url2tile(char *url, osm_tile_t *tile) {
 	if(NULL == url)
 		return 0;
+	if(NULL == tile)
+		return 0;
 	// faire un split puis creer la tile
 	char *tocken = NULL;
 	char **buf = malloc(sizeof(char *)*512);
