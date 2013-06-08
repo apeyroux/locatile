@@ -25,6 +25,7 @@ int url2tile(char *url, osm_tile_t *tile) {
 	// faire un split puis creer la tile
 	char *tocken = NULL;
 	char **buf = malloc(sizeof(char *)*512);
+
 	int i = 0;
 	while(url != NULL) {
 		if(i >= 512)
