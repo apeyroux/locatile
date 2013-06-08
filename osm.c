@@ -1,5 +1,9 @@
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stddef.h>
+
+#include <stdio.h>
 
 #include "osm.h"
 
@@ -32,6 +36,35 @@ osm_gps_t * tile2gps(osm_tile_t *tile) {
 }
 
 osm_tile_t * url2tile(char *url) {
-	osm_tile_t *tile = NULL;
+	osm_tile_t *tile = NULL;	
+	if(NULL == url)
+		exit(0);
+	if(NULL == (tile = malloc(sizeof(osm_tile_t))))
+		exit(0);
+	/***********************************************
+	 * faire un split puis creer la tile
+	*/
+
+	char *tocken = NULL;
+	char **buf = malloc(sizeof(char *)*512);
+	int i = 0;
+	while(url != NULL) {
+		if(i >= 512)
+			exit(0); // URL trop grosse !
+		tocken = strsep(&url, "/");
+		buf[i] = tocken;
+		i++;
+	}
+
+	int nbBufEl = 0;
+	for(int i = 0; buf[i] != NULL; i++) 
+		nbBufEl++;
+
+	tile->server_name = buf[2];
+	tile->x = atoi(buf[nbBufEl-2]);
+	tile->y = atoi(buf[nbBufEl-1]); // propre ? (vire implicitement le .png)
+	tile->z = atoi(buf[nbBufEl-3]);
+	tile->gps = *tile2gps(tile);
+
 	return tile;
 }

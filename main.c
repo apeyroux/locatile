@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <regex.h>
 
 #include "osm.h"
 
@@ -14,12 +13,10 @@ void usage() {
 }
 
 int main(int argc, char **argv) {
-	if(4 != argc) 
+	if(2 != argc) 
 		usage();
-		
-	int z = atoi(argv[1]);
-	int x = atoi(argv[2]);
-	int y = atoi(argv[3]);
+
+	char *url = argv[1];
 
 	osm_tile_t *tile = NULL;
 	if(NULL == (tile = malloc(sizeof(osm_tile_t))))
@@ -28,17 +25,15 @@ int main(int argc, char **argv) {
 	osm_gps_t *gps = NULL;
 	if(NULL == (gps = malloc(sizeof(osm_gps_t))))
 		exit(0);
-	
-	tile->x = x;
-	tile->y = y;
-	tile->z = z;	
 
-	gps = tile2gps(tile);	
-
-	printf("Pour z:%d x:%d y:%d\n", z, x, y);
-	//printf("La vignette se trouve : %f,%f - ", tiley2lat(tile->y,tile->z), tilex2long(tile->x,tile->z));
-	printf("La vignette se trouve : %f,%f - ", gps->x, gps->y);
-	printf("http://www.openstreetmap.org/?mlat=%f&mlon=%f&zoom=15\n", gps->x, gps->y);
+	tile = url2tile(url);
+	//gps = tile2gps(tile);	
+	printf("x:%d\n", tile->x);
+	printf("y:%d\n", tile->y);
+	printf("z:%d\n", tile->z);
+	printf("gps:%f,%f\n", tile->gps.x, tile->gps.y);
+	printf("loc:http://www.openstreetmap.org/?mlat=%f&mlon=%f&zoom=15\n", tile->gps.x, tile->gps.y); 
+	printf("srv:%s\n", tile->server_name);
 
 	free(tile);
 	free(gps);

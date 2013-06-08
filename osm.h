@@ -10,6 +10,7 @@ struct osm_tile_s {
 	int x;
 	int y;
 	int z;
+	char * server_name;
 	osm_gps_t gps;
 };
 

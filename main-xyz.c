@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
 	gps = tile2gps(tile);	
 
 	printf("Pour z:%d x:%d y:%d\n", z, x, y);
-	//printf("La vignette se trouve : %f,%f - ", tiley2lat(tile->y,tile->z), tilex2long(tile->x,tile->z));
 	printf("La vignette se trouve : %f,%f - ", gps->x, gps->y);
 	printf("http://www.openstreetmap.org/?mlat=%f&mlon=%f&zoom=15\n", gps->x, gps->y);
 
