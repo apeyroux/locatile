@@ -5,6 +5,10 @@
 
 #include "locatile.h"
 
+/*
+ * osm_gps_t * tile2gps(osm_tile_t *tile);
+ * Permet depuis une tuile de recup ses coordonées
+ */
 osm_gps_t * tile2gps(osm_tile_t *tile) {
 	osm_gps_t *gps = NULL;
 	if(NULL == (gps = malloc(sizeof(osm_gps_t))))
@@ -16,6 +20,10 @@ osm_gps_t * tile2gps(osm_tile_t *tile) {
 	return gps;	
 }
 
+/*
+ * osm_tile_t * url2tile(char *url);
+ * Permet depuis une url de creer une tuile
+ */
 osm_tile_t * url2tile(char *url) {
 	osm_tile_t *tile = NULL;	
 	if(NULL == url)
