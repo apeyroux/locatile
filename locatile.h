@@ -19,5 +19,5 @@ int lat2tiley(double lat, int z);
 double tilex2long(int x, int z);
 double tiley2lat(int y, int z); 
 
-osm_gps_t * tile2gps(osm_tile_t *tile);
-osm_tile_t * url2tile(char *url);
+int tile2gps(osm_tile_t *tile, osm_gps_t *gps);
+int url2tile(char *url, osm_tile_t *tile);

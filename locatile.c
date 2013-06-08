@@ -3,33 +3,25 @@
 #include <string.h>
 #include <stddef.h>
 
+#include <stdio.h>
+
 #include "locatile.h"
 
-/*
- * osm_gps_t * tile2gps(osm_tile_t *tile);
- * Permet depuis une tuile de recup ses coordonées
- */
-osm_gps_t * tile2gps(osm_tile_t *tile) {
-	osm_gps_t *gps = NULL;
-	if(NULL == (gps = malloc(sizeof(osm_gps_t))))
-		 exit(0); // mettre du messsage d'erreur
+int tile2gps(osm_tile_t *tile, osm_gps_t *gps) {
+	if(NULL == gps)
+		return 0;
 	if(NULL == tile)
-		exit(0);
+		return 0;
+
 	gps->x = tiley2lat(tile->y,tile->z);
-	gps->y = tilex2long(tile->x,tile->z);
-	return gps;	
+        gps->y = tilex2long(tile->x,tile->z);
+
+	return 1;
 }
 
-/*
- * osm_tile_t * url2tile(char *url);
- * Permet depuis une url de creer une tuile
- */
-osm_tile_t * url2tile(char *url) {
-	osm_tile_t *tile = NULL;	
+int url2tile(char *url, osm_tile_t *tile) {
 	if(NULL == url)
-		exit(0);
-	if(NULL == (tile = malloc(sizeof(osm_tile_t))))
-		exit(0);
+		return 0;
 	// faire un split puis creer la tile
 	char *tocken = NULL;
 	char **buf = malloc(sizeof(char *)*512);
@@ -41,21 +33,28 @@ osm_tile_t * url2tile(char *url) {
 		buf[i] = tocken;
 		i++;
 	}
-
 	int nbBufEl = 0;
 	for(int i = 0; buf[i] != NULL; i++) 
 		nbBufEl++;
 
-	if(nbBufEl <= 2) // verif si ya bien minimu deux match si non segfault
-		return NULL;
+	if(nbBufEl <= 2) // verif si ya bien minimu trois match si non segfault
+		return 0;
 
 	tile->server_name = buf[2];
 	tile->x = atoi(buf[nbBufEl-2]);
 	tile->y = atoi(buf[nbBufEl-1]); // propre ? (vire implicitement le .png)
 	tile->z = atoi(buf[nbBufEl-3]);
-	tile->gps = *tile2gps(tile);
 
-	return tile;
+	osm_gps_t *gps = NULL;
+	if(NULL == (gps = malloc(sizeof(osm_gps_t))))
+		return 0;
+
+	if(tile2gps(tile, gps)) {
+		tile->gps = *gps;
+	} else 
+		return 0;
+
+	return 1;
 }
 
 /*
@@ -78,5 +77,3 @@ double tiley2lat(int y, int z) {
 	double n = M_PI - 2.0 * M_PI * y / pow(2.0, z);
 	return 180.0 / M_PI * atan(0.5 * (exp(n) - exp(-n)));
 }
-
-
