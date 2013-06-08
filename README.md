@@ -1,7 +1,7 @@
 locatile
 ========
 
-This program shows how we can easily locate an OSM tile. It can be used for a cache manager for example.
+This program shows how we can easily locate an OSM tile. For example, it can be used for a cache manager to see association with a box. The ideal would be to use this function with a module cache nginx for OSM. We could specify the bbox to put or not put in the nginx cache.
 
 
 Usage
