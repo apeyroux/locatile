@@ -5,10 +5,7 @@
 
 void usage() {
 	puts("Exemple :");
-	puts("\tVignette : http://a.tile.openstreetmap.org/18/136194/95787.png");
-	puts("\t- z:18");
-	puts("\t- x:136194");
-	puts("\t- y:95787");
+	puts("\tlocatile http://a.tile.openstreetmap.org/18/136194/95787.png");
 	exit(0);
 }
 
@@ -29,9 +26,9 @@ int main(int argc, char **argv) {
 	if(NULL == (tile = url2tile(url)))
 		usage();
 	
-	printf("x:%d\n", tile->x);
-	printf("y:%d\n", tile->y);
-	printf("z:%d\n", tile->z);
+	//printf("x:%d\n", tile->x);
+	//printf("y:%d\n", tile->y);
+	//printf("z:%d\n", tile->z);
 	printf("gps:%f,%f\n", tile->gps.x, tile->gps.y);
 	printf("loc:http://www.openstreetmap.org/?mlat=%f&mlon=%f&zoom=15\n", tile->gps.x, tile->gps.y); 
 	printf("srv:%s\n", tile->server_name);
