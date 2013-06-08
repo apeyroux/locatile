@@ -60,6 +60,9 @@ osm_tile_t * url2tile(char *url) {
 	for(int i = 0; buf[i] != NULL; i++) 
 		nbBufEl++;
 
+	if(nbBufEl <= 2) // verif si ya bien minimu deux match si non segfault
+		return NULL;
+
 	tile->server_name = buf[2];
 	tile->x = atoi(buf[nbBufEl-2]);
 	tile->y = atoi(buf[nbBufEl-1]); // propre ? (vire implicitement le .png)

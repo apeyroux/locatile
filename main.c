@@ -26,8 +26,9 @@ int main(int argc, char **argv) {
 	if(NULL == (gps = malloc(sizeof(osm_gps_t))))
 		exit(0);
 
-	tile = url2tile(url);
-	//gps = tile2gps(tile);	
+	if(NULL == (tile = url2tile(url)))
+		usage();
+	
 	printf("x:%d\n", tile->x);
 	printf("y:%d\n", tile->y);
 	printf("z:%d\n", tile->z);
