@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "osm.h"
+#include "locatile.h"
 
 void usage() {
 	puts("Exemple :");
-	puts("\tlocatile http://a.tile.openstreetmap.org/18/136194/95787.png");
+	puts("\tlocatile http://c.tile.openstreetmap.org/15/17020/11746.png");
 	exit(0);
 }
 
