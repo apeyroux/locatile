@@ -3,8 +3,6 @@
 #include <string.h>
 #include <stddef.h>
 
-#include <stdio.h>
-
 #include "locatile.h"
 
 int tile2gps(osm_tile_t *tile, osm_gps_t *gps) {
