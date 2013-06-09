@@ -18,13 +18,16 @@ int tile2gps(osm_tile_t *tile, osm_gps_t *gps) {
 }
 
 int url2tile(char *url, osm_tile_t *tile) {
+	int nbBufEl = 0;
+	char *tocken = NULL;
+	char **buf = NULL;
+
 	if(NULL == url)
 		return 0;
 	if(NULL == tile)
 		return 0;
-	// faire un split puis creer la tile
-	char *tocken = NULL;
-	char **buf = malloc(sizeof(char *)*512);
+	if(NULL == (buf = malloc(sizeof(char *)*512)))
+		return 0;
 
 	int i = 0;
 	while(url != NULL) {
@@ -34,7 +37,7 @@ int url2tile(char *url, osm_tile_t *tile) {
 		buf[i] = tocken;
 		i++;
 	}
-	int nbBufEl = 0;
+
 	for(int i = 0; buf[i] != NULL; i++) 
 		nbBufEl++;
 
@@ -54,6 +57,8 @@ int url2tile(char *url, osm_tile_t *tile) {
 		tile->gps = *gps;
 	} else 
 		return 0;
+
+	free(buf);
 
 	return 1;
 }
