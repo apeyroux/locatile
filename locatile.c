@@ -34,7 +34,7 @@ int url2tile(char *url, osm_tile_t *tile) {
 		if(i >= 512)
 			exit(0); // URL trop grosse !
 		tocken = strsep(&url, "/");
-		buf[i] = tocken;
+		*(buf+i) = tocken;
 		i++;
 	}
 
