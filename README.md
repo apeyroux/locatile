@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/j4/locatile.png?branch=master)](https://travis-ci.org/j4/locatile)
+
 locatile
 ========
 
